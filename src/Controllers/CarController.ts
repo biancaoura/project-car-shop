@@ -24,4 +24,14 @@ export default class CarController {
       this.next(err);
     }
   }
+
+  public async getAll(): Promise<void> {
+    try {
+      const cars = await this.service.getAll();
+      this.res.status(StatusCodes.OK).json(cars);
+    } catch (err) {
+      this.res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+      this.next(err);
+    }
+  }
 }

@@ -11,4 +11,9 @@ export default class CarService {
     const newCar = await this.model.create(car);
     return new Car(newCar);
   }
+
+  public async getAll(): Promise<Car[]> {
+    const cars = await this.model.getAll();
+    return cars.map((car: ICar) => new Car(car));
+  }
 }

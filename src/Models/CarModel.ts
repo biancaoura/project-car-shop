@@ -17,7 +17,11 @@ export default class CarModel extends ODM<ICar> {
     super('Car', carSchema);
   }
 
-  public async create(newCar: Omit<ICar, 'id'>) {
+  public async create(newCar: Omit<ICar, 'id'>): Promise<ICar> {
     return this.model.create(newCar);
+  }
+
+  public async getAll(): Promise<ICar[]> {
+    return this.model.find();
   }
 }
