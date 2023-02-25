@@ -1,35 +1,19 @@
 import { Schema } from 'mongoose';
-import ODM from './ODM';
+import AbstractODM from './AbstractODM';
 import ICar from '../Interfaces/ICar';
 
-export default class CarModel extends ODM<ICar> {
+export default class CarModel extends AbstractODM<ICar> {
   constructor() {
     const carSchema = new Schema<ICar>({
       model: { type: String, required: true },
       year: { type: Number, required: true },
       color: { type: String, required: true },
       status: { type: Boolean, required: false, default: false },
-      buyValue: { type: Number, required: false },
+      buyValue: { type: Number, required: true },
       doorsQty: { type: Number, required: true },
       seatsQty: { type: Number, required: true },
     });
 
     super('Car', carSchema);
-  }
-
-  public async create(newCar: Omit<ICar, 'id'>): Promise<ICar> {
-    return this.model.create(newCar);
-  }
-
-  public async getAll(): Promise<ICar[]> {
-    return this.model.find();
-  }
-
-  public async getById(id: string): Promise<ICar | null> {
-    return this.model.findById(id);
-  }
-
-  public async update(id: string, newInfo: ICar): Promise<ICar | null> {
-    return this.model.findByIdAndUpdate(id, newInfo, { new: true });
   }
 }
