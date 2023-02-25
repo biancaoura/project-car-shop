@@ -1,6 +1,8 @@
 import CarModel from '../Models/CarModel';
 import ICar from '../Interfaces/ICar';
 import Car from '../Domains/Car';
+import HttpError from '../Utils/HttpError';
+import StatusCodes from '../Utils/StatusCodes';
 
 export default class CarService {
   private model;
@@ -15,5 +17,13 @@ export default class CarService {
   public async getAll(): Promise<Car[]> {
     const cars = await this.model.getAll();
     return cars.map((car: ICar) => new Car(car));
+  }
+
+  public async getById(id: string): Promise<Car> {
+    const car = await this.model.getById(id);
+
+    if (!car) throw new HttpError(StatusCodes.NOT_FOUND, 'Car not found');
+
+    return new Car(car);
   }
 }
