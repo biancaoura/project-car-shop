@@ -1,7 +1,9 @@
 import IMotorcycle from '../../../../src/Interfaces/IMotorcycle';
 
+export const validMongoId = '6348513f34c397abcad040b2';
+
 export const bikeOutput: IMotorcycle = {
-  id: '6348513f34c397abcad040b2',
+  id: validMongoId,
   model: 'Honda Cb 600f Hornet',
   year: 2005,
   color: 'Yellow',
@@ -20,3 +22,17 @@ export const bikeInput: IMotorcycle = {
   category: 'Street',
   engineCapacity: 600,
 };
+
+export const allBikes: IMotorcycle[] = [
+  bikeOutput,
+  {
+    id: '634852326b35b59438fbea31',
+    model: 'Honda Cbr 1000rr',
+    year: 2011,
+    color: 'Orange',
+    status: true,
+    buyValue: 59.900,
+    category: 'Street',
+    engineCapacity: 1000,
+  },
+];
