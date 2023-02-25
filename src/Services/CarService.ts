@@ -9,7 +9,7 @@ export default class CarService {
 
   constructor() { this.model = new CarModel(); }
 
-  public async create(car: Omit<ICar, 'id'>):Promise<Car> {
+  public async create(car: Omit<ICar, 'id'>): Promise<Car> {
     const newCar = await this.model.create(car);
     return new Car(newCar);
   }
