@@ -12,4 +12,9 @@ export default class MotorcycleService {
 
     return new Motorcycle(newBike);
   }
+
+  public async getAll(): Promise<Motorcycle[]> {
+    const bikes = await this.model.getAll();
+    return bikes.map((bike: IMotorcycle) => new Motorcycle(bike));
+  }
 }
