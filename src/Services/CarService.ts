@@ -26,4 +26,12 @@ export default class CarService {
 
     return new Car(car);
   }
+
+  public async update(id: string, newInfo: ICar) {
+    const updatedCar = await this.model.update(id, newInfo);
+    
+    if (!updatedCar) throw new HttpError(StatusCodes.NOT_FOUND, 'Car not found');
+
+    return this.create(updatedCar);
+  }
 }
