@@ -3,6 +3,7 @@ import { isValidObjectId } from 'mongoose';
 import StatusCodes from '../Utils/StatusCodes';
 import MotorcycleService from '../Services/MotorcycleService';
 import HttpError from '../Utils/HttpError';
+import IMotorcycle from '../Interfaces/IMotorcycle';
 
 export default class MotorcycleController {
   private req: Request;
@@ -49,6 +50,24 @@ export default class MotorcycleController {
       const bike = await this.service.getById(id);
 
       this.res.status(StatusCodes.OK).json(bike);
+    } catch (err) {
+      this.next(err);
+    }
+  }
+
+  public async update(): Promise<void> {
+    try {
+      const { id } = this.req.params;
+
+      if (!isValidObjectId(id)) {
+        throw new HttpError(StatusCodes.UNPROCESSABLE_ENTITY, 'Invalid mongo id');
+      }
+
+      const newInfo: IMotorcycle = this.req.body;
+
+      const updatedBike = await this.service.update(id, newInfo);
+
+      this.res.status(StatusCodes.OK).json(updatedBike);
     } catch (err) {
       this.next(err);
     }

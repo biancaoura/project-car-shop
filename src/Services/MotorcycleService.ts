@@ -27,4 +27,12 @@ export default class MotorcycleService {
 
     return new Motorcycle(bike);
   }
+
+  public async update(id: string, newInfo: IMotorcycle) {
+    const updatedBike = await this.model.update(id, newInfo);
+
+    if (!updatedBike) throw new HttpError(StatusCodes.NOT_FOUND, 'Motorcycle not found');
+
+    return this.create(updatedBike);
+  }
 }
