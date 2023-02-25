@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+import { isValidObjectId } from 'mongoose';
 import StatusCodes from '../Utils/StatusCodes';
 import MotorcycleService from '../Services/MotorcycleService';
+import HttpError from '../Utils/HttpError';
 
 export default class MotorcycleController {
   private req: Request;
@@ -32,6 +34,22 @@ export default class MotorcycleController {
       this.res.status(StatusCodes.OK).json(bikes);
     } catch (err) {
       this.res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+      this.next(err);
+    }
+  }
+
+  public async getById(): Promise<void> {
+    try {
+      const { id } = this.req.params;
+
+      if (!isValidObjectId(id)) {
+        throw new HttpError(StatusCodes.UNPROCESSABLE_ENTITY, 'Invalid mongo id');
+      }
+
+      const bike = await this.service.getById(id);
+
+      this.res.status(StatusCodes.OK).json(bike);
+    } catch (err) {
       this.next(err);
     }
   }

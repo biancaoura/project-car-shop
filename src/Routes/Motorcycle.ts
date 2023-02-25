@@ -7,4 +7,6 @@ router.post('/', (req, res, next) => new MotorcycleController(req, res, next).cr
 
 router.get('/', (req, res, next) => new MotorcycleController(req, res, next).getAll());
 
+router.get('/:id', (req, res, next) => new MotorcycleController(req, res, next).getById());
+
 export default router;
