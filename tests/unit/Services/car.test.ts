@@ -1,17 +1,18 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Model } from 'mongoose';
-import { carInput, carOutput, allCars } from '../carStubs';
+import { carInput, carOutput, allCars, validMongoId } from './Stubs/carStubs';
 import CarService from '../../../src/Services/CarService';
 import StatusCodes from '../../../src/Utils/StatusCodes';
 
 describe('Car Service', function () {
   afterEach(sinon.restore);
 
+  const service = new CarService();
+
   it('1 - Should create a new car', async function () {
     sinon.stub(Model, 'create').resolves(carOutput);
 
-    const service = new CarService();
     const result = await service.create(carInput);
 
     expect(result).to.deep.equal(carOutput);
@@ -20,7 +21,6 @@ describe('Car Service', function () {
   it('2 - Should get all cars', async function () {
     sinon.stub(Model, 'find').resolves(allCars);
 
-    const service = new CarService();
     const result = await service.getAll();
 
     expect(result).to.deep.equal(allCars);
@@ -29,8 +29,7 @@ describe('Car Service', function () {
   it('3 - Should get a car by id', async function () {
     sinon.stub(Model, 'findById').resolves(carOutput);
 
-    const service = new CarService();
-    const result = await service.getById('6348513f34c397abcad040b2');
+    const result = await service.getById(validMongoId);
 
     expect(result).to.deep.equal(carOutput);
   });
@@ -40,7 +39,6 @@ describe('Car Service', function () {
 
     const invalidMongoId = '1111222233330000ffffcccc';
 
-    const service = new CarService();
     const result = await service.getById(invalidMongoId).catch((err) => err);
 
     expect(result.status).to.be.equal(StatusCodes.NOT_FOUND);

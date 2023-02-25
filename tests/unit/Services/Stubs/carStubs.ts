@@ -1,5 +1,5 @@
-import ICar from '../../src/Interfaces/ICar';
-import Car from '../../src/Domains/Car';
+import ICar from '../../../../src/Interfaces/ICar';
+import Car from '../../../../src/Domains/Car';
 
 export const carInput: ICar = {
   model: 'Marea',
@@ -24,7 +24,7 @@ export const carOutput: Car = new Car({
 
 export const allCars: ICar[] = [
   {
-    id: '634852326b35b59438fbea2f',
+    id: '6348513f34c397abcad040b2',
     model: 'Marea',
     year: 2002,
     color: 'Black',
@@ -44,3 +44,16 @@ export const allCars: ICar[] = [
     seatsQty: 2,
   },
 ];
+
+export const carToUpdate = {
+  id: '6348513f34c397abcad040b2',
+  model: 'Marea',
+  year: 2002,
+  color: 'White',
+  status: true,
+  buyValue: 15.990,
+  doorsQty: 4,
+  seatsQty: 5,
+};
+
+export const validMongoId = '6348513f34c397abcad040b2';
