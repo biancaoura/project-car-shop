@@ -10,6 +10,8 @@ describe('Car Service', function () {
 
   const service = new CarService();
 
+  const invalidMongoId = '1111222233330000ffffcccc';
+
   it('1 - Should create a new car', async function () {
     sinon.stub(Model, 'create').resolves(carOutput);
 
@@ -37,9 +39,16 @@ describe('Car Service', function () {
   it('4 - Should throw an error if the car doesn\'t exist', async function () {
     sinon.stub(Model, 'findById').resolves(undefined);
 
-    const invalidMongoId = '1111222233330000ffffcccc';
-
     const result = await service.getById(invalidMongoId).catch((err) => err);
+
+    expect(result.status).to.be.equal(StatusCodes.NOT_FOUND);
+    expect(result.message).to.deep.equal('Car not found');
+  });
+
+  it('5 - Should throw an error if no car is found when trying to update', async function () {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves();
+
+    const result = await service.update(invalidMongoId, carInput).catch((err) => err);
 
     expect(result.status).to.be.equal(StatusCodes.NOT_FOUND);
     expect(result.message).to.deep.equal('Car not found');
