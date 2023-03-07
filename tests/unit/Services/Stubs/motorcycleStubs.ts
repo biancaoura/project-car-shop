@@ -27,7 +27,7 @@ export const bikeInput: IMotorcycle = {
 export const bikeOutput: Motorcycle = new Motorcycle(updatedBike);
 
 export const allBikes: IMotorcycle[] = [
-  bikeInput,
+  updatedBike,
   {
     id: '634852326b35b59438fbea31',
     model: 'Honda Cbr 1000rr',
