@@ -11,7 +11,7 @@ export const carInput: ICar = {
   seatsQty: 5,
 };
 
-export const carOutput: Car = new Car({
+export const updatedCar: ICar = {
   id: '6348513f34c397abcad040b2',
   model: 'Marea',
   year: 2002,
@@ -20,7 +20,9 @@ export const carOutput: Car = new Car({
   buyValue: 15.990,
   doorsQty: 4,
   seatsQty: 5,
-});
+};
+
+export const carOutput: Car = new Car(updatedCar);
 
 export const allCars: ICar[] = [
   {
@@ -44,16 +46,5 @@ export const allCars: ICar[] = [
     seatsQty: 2,
   },
 ];
-
-export const carToUpdate = {
-  id: '6348513f34c397abcad040b2',
-  model: 'Marea',
-  year: 2002,
-  color: 'White',
-  status: true,
-  buyValue: 15.990,
-  doorsQty: 4,
-  seatsQty: 5,
-};
 
 export const validMongoId = '6348513f34c397abcad040b2';

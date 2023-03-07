@@ -1,8 +1,9 @@
 import IMotorcycle from '../../../../src/Interfaces/IMotorcycle';
+import Motorcycle from '../../../../src/Domains/Motorcycle';
 
 export const validMongoId = '6348513f34c397abcad040b2';
 
-export const bikeOutput: IMotorcycle = {
+export const updatedBike: IMotorcycle = {
   id: validMongoId,
   model: 'Honda Cb 600f Hornet',
   year: 2005,
@@ -23,8 +24,10 @@ export const bikeInput: IMotorcycle = {
   engineCapacity: 600,
 };
 
+export const bikeOutput: Motorcycle = new Motorcycle(updatedBike);
+
 export const allBikes: IMotorcycle[] = [
-  bikeOutput,
+  bikeInput,
   {
     id: '634852326b35b59438fbea31',
     model: 'Honda Cbr 1000rr',

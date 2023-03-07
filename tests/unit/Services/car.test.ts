@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Model } from 'mongoose';
-import { carInput, carOutput, allCars, validMongoId } from './Stubs/carStubs';
+import { carInput, carOutput, allCars, validMongoId, updatedCar } from './Stubs/carStubs';
 import CarService from '../../../src/Services/CarService';
 import StatusCodes from '../../../src/Utils/StatusCodes';
 
@@ -52,5 +52,14 @@ describe('Car Service', function () {
 
     expect(result.status).to.be.equal(StatusCodes.NOT_FOUND);
     expect(result.message).to.deep.equal('Car not found');
+  });
+
+  it('6 - Should correctly update a car', async function () {
+    sinon.stub(Model, 'create').resolves(updatedCar);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedCar);
+
+    const result = await service.update(validMongoId, carInput);
+
+    expect(result).to.be.deep.equal(updatedCar);
   });
 });
